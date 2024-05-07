@@ -1,5 +1,6 @@
-import React from "react";
+import "./homePage.css";
 import { Link } from "react-router-dom";
+import Layout from "../../../components/layout/Layout";
 
 const Home = () => {
   const posts = [
@@ -30,24 +31,28 @@ const Home = () => {
   ];
 
   return (
-    <div className="home">
-      <div className="posts">
-        {posts.map((post) => (
-          <div className="post" key={post.id}>
-            <div className="img">
-              <img src={post.img} alt="" />
+    <Layout>
+      <div className="home">
+        <div className="posts">
+          {posts.map((post) => (
+            <div className="post" key={post.id}>
+              <div className="img">
+                <img src={post.img} alt="" />
+              </div>
+              <div className="content">
+                <Link className="link" to={`/post/${post.id}`}>
+                  <h1 className="title">{post.title}</h1>
+                </Link>
+                <p>{post.desc}</p>
+                <Link className="link" to={`/post/${post.id}`}>
+                  <button className="btn">Read More</button>
+                </Link>
+              </div>
             </div>
-            <div className="content">
-              <Link className="link" to={`/post/${post.id}`}>
-                <h1>{post.title}</h1>
-              </Link>
-              <p>{post.desc}</p>
-              <button>Read More</button>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

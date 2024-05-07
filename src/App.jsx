@@ -4,8 +4,8 @@ import Home from "./pages/blog/home/Home";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import EditBlog from "./pages/blog/edit/EditBlog";
-import CreateBlog from "./pages/blog/create/CreatePage";
 import SinglePage from "./pages/blog/single/SinglePage";
+import { Write } from "./pages/blog/write/Write";
 
 function App() {
   return (
@@ -15,8 +15,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/blog/edit" element={<EditBlog />} />
-        <Route path="/blog/create" element={<CreateBlog />} />
-        <Route path="/blog/:id" element={<SinglePage />} />
+        <Route path="/write" element={<Write />} />
+        <Route path="/post/:id" element={<SinglePage />} />
       </Routes>
     </BrowserRouter>
   );

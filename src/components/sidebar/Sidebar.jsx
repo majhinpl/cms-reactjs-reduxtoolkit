@@ -1,4 +1,4 @@
-import React from "react";
+import "./sidebar.css";
 
 const Sidebar = () => {
   const posts = [
@@ -29,13 +29,13 @@ const Sidebar = () => {
   ];
   return (
     <div className="sidebar">
-      <h1>Other posts you may like</h1>
+      <h1 className="title">Other posts you may like</h1>
 
       {posts.map((post) => (
         <div className="post" key={post.id}>
           <img src={post.img} alt="" />
-          <h2>{post.title}</h2>
-          <button>Read More</button>
+          <h2 className="subTitle">{post.title}</h2>
+          <button className="btn">Read More</button>
         </div>
       ))}
     </div>

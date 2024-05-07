@@ -19,6 +19,7 @@ const Footer = () => {
               alt="linkedin logo"
               width={24}
               height={24}
+              className="hover:backdrop-opacity-75"
             />
           </Link>
           <Link to="">
