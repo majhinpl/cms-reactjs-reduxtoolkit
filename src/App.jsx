@@ -6,19 +6,23 @@ import Login from "./pages/auth/Login";
 import EditBlog from "./pages/blog/edit/EditBlog";
 import SinglePage from "./pages/blog/single/SinglePage";
 import { Write } from "./pages/blog/write/Write";
+import { Provider } from "react-redux";
+import store from "../store/store";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/blog/edit" element={<EditBlog />} />
-        <Route path="/write" element={<Write />} />
-        <Route path="/post/:id" element={<SinglePage />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/blog/edit" element={<EditBlog />} />
+          <Route path="/write" element={<Write />} />
+          <Route path="/post/:id" element={<SinglePage />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
