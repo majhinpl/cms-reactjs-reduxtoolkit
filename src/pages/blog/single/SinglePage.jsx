@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const SinglePage = () => {
   return (
     <Layout>
-      <div className="single">
+      <div className="single max-w-screen-lg mx-auto">
         <div className="content">
           <img
             src="https://media.istockphoto.com/id/1345912457/photo/financial-stock-market-graph-selective-focus.jpg?s=612x612&w=is&k=20&c=dCnoMBxvdHQT9aUhVxiApN6w7BgGer6uXZe3LdPlnNg="

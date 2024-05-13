@@ -33,7 +33,7 @@ const Home = () => {
   return (
     <Layout>
       <div className="home">
-        <div className="posts">
+        <div className="posts max-w-screen-lg mx-auto">
           {posts.map((post) => (
             <div className="post" key={post.id}>
               <div className="img">

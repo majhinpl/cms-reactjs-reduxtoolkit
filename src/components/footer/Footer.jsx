@@ -1,10 +1,9 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <>
-      <div className="container mx-auto flex py-2">
+      <div className="container mx-auto flex py-2 max-w-screen-lg">
         <div className="flex-1 text-sm">
           <p className="text-start">
             The information presented is the most up to date at the time of
