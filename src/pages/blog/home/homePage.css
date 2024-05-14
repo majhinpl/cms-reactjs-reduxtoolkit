@@ -22,11 +22,6 @@
   gap: 50px;
 }
 
-.post:nth-child(2n + 1) {
-  display: flex;
-  flex-direction: row-reverse;
-}
-
 .img {
   flex: 2;
   position: relative;
@@ -75,4 +70,11 @@ button:hover {
   border: 1px solid white;
   background-color: var(--light-green);
   color: black;
+}
+
+@media screen and (max-width: 789px) {
+  .post:nth-child(2n + 1) {
+    display: flex;
+    flex-direction: row-reverse;
+  }
 }

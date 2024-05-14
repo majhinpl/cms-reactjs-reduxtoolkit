@@ -5,7 +5,7 @@ const Card = () => {
   return (
     <>
       <div className="container mx-auto flex">
-        <div className="flex shadow-black shadow-sm gap-10 p-2 ">
+        <div className="flex flex-col md:block shadow-black shadow-sm gap-10 p-2 ">
           <div className="image">
             <img
               src="https://images.pexels.com/photos/185576/pexels-photo-185576.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
