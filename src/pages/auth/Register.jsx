@@ -21,7 +21,7 @@ const Register = ({ type }) => {
     } else {
       navigate("/register");
     }
-  }, [status]);
+  }, [status, navigate]);
   return <Form type="Register" onSubmit={handleRegister} />;
 };
 

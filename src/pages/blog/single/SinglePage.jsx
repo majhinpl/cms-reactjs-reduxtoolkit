@@ -24,7 +24,7 @@ const SinglePage = () => {
               <p>Posted 2 days ago</p>
             </div>
             <div className="edit">
-              <Link to={`/write?edit=2`}>
+              <Link to={`/edit?edit=2`}>
                 <img src="/edit.png" alt="" />
               </Link>
               <img src="/delete.png" alt="" />

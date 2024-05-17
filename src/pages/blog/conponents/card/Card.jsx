@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Card = () => {
+const Card = ({blog}) => {
+  console.log(blog);
   return (
     <>
       <div className="container mx-auto flex">
         <div className="flex flex-col md:block shadow-black shadow-sm gap-10 p-2 ">
           <div className="image">
             <img
-              src="https://images.pexels.com/photos/185576/pexels-photo-185576.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src={blog.imageUrl}
               alt="Market analysis picture"
               className="object-cover rounded-md mb-3 h-[200px] "
             />
@@ -21,13 +22,12 @@ const Card = () => {
             </div>
             <div className="title">
               <h1 className="text-start font-bold mb-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                {blog.title}
               </h1>
             </div>
             <div className="desc">
               <p className="font-light text-start mb-4">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta
-                voluptas minima modi animi maxime magnam dolore.
+                {blog.description}
               </p>
             </div>
             <Link to="/blogDetail">

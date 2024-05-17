@@ -6,7 +6,7 @@ import STATUSES from "../../globals/statuses";
 import { login, setStatus } from "../../../store/authSlice";
 
 const Login = ({ type }) => {
-  const { user, status } = useSelector((state) => state.auth);
+  const { user, status, token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogin = (data) => {
@@ -15,11 +15,12 @@ const Login = ({ type }) => {
   useEffect(() => {
     if (status === STATUSES.SUCCESS) {
       navigate("/");
-      dispatch(setStatus(null));
+      // dispatch(setStatus(null));
+      localStorage.setItem("jwtToken", token);
     } else {
       navigate("/login");
     }
-  }, [status]);
+  }, [status, navigate]);
   return <Form type="Login" onSubmit={handleLogin}></Form>;
 };
 

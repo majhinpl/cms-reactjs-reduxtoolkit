@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const Form = ({ type }) => {
+const Form = ({ type, onSubmit }) => {
+  const [value, setValue] = useState("");
+
   const [data, setData] = useState({
     title: "",
     subtitle: "",
@@ -11,99 +13,127 @@ const Form = ({ type }) => {
     image: "",
   });
 
-  const [file, setFile] = useState(null);
-  const [open, setOpen] = useState(false);
+  // collect a data
+  const hendleChange = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    setData({
+      ...data,
+      [name]: name === "image" ? e.target.files[0] : value,
+    });
+  };
+
+  // send data
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const finalData = {
+      ...data,
+      description: value,
+    };
+    onSubmit(finalData);
+    console.log(finalData);
+  };
 
   return (
-    <div className="container mx-auto">
-      <h1 className="uppercase bg-slate-600 py-2 font-bold text-xl text-white">{type} Blog</h1>
-      <form className="mx-auto container writeform relative mt-4">
+    <form className="write" onSubmit={handleSubmit}>
+      <div className="content">
         <input
           type="text"
           placeholder="Title"
-          className="border-none outline-none bg-transparent"
+          name="title"
+          onChange={hendleChange}
         />
         <input
           type="text"
-          placeholder="Sub-Title"
-          className="border-none outline-none bg-transparent"
+          placeholder="Subtitle"
+          name="subtitle"
+          onChange={hendleChange}
         />
-
-        <select
-          id="categ-select"
-          name="category"
-          required
-          className="border-none outline-none"
-        >
-          <option value="">Select a category</option>
-          <option value="market-overview">Market Overview</option>
-          <option value="chart-pattern">Chart Patterns</option>
-          <option value="market-analysis">Market Analysis</option>
-          <option value="technical-analysis">Technical Analysis</option>
-          <option value="fundamentle-analysis">Fundamentle Analysis</option>
-        </select>
-
-        <div className="flex gap-20 relative  ">
-          <button onClick={() => setOpen(!open)}>
-            <img
-              src="/plus.png"
-              alt="plus icon"
-              className=" absolute top-0 left-8"
-            />
-          </button>
-          {open && (
-            <div className="cursor-pointer">
-              <input
-                type="file"
-                id="image"
-                onChange={(e) => setFile(e.target.files[0])}
-                className="hidden  w-full wrap bg-transparent  bg-[#1a8917] "
-              />
-              <button>
-                <label htmlFor="image"></label>
-                <img
-                  src="/image.png"
-                  alt=""
-                  width={16}
-                  height={16}
-                  className="bg-transparent border-none outline-none"
-                />
-              </button>
-              <button>
-                <img
-                  src="/external.png"
-                  alt=""
-                  width={16}
-                  height={16}
-                  className="bg-transparent border-none outline-none"
-                />
-              </button>
-              <button>
-                <img
-                  src="/video.png"
-                  alt=""
-                  width={16}
-                  height={16}
-                  className="bg-transparent border-none outline-none flex"
-                />
-              </button>
-            </div>
-          )}
+        <div className="editorContainer">
           <ReactQuill
-            theme="bubble"
-            placeholder="Tell your story..."
-            className="w-[100%] h-[700px]"
+            theme="snow"
+            value={value}
+            onChange={setValue}
+            className="editor"
+            name="description"
           />
-        </div>
 
-        <button
-          type="submit"
-          className="absolute top-20 right-20 bg-[#1a8917] p-2 rounded-md cursor-pointer text-xl border-none"
-        >
-          {type === "Edit" ? "Save" : "Publish"}
-        </button>
-      </form>
-    </div>
+          {/* <input type="text" name="description" onChange={hendleChange} /> */}
+        </div>
+      </div>
+      <div className="menu">
+        <div className="item">
+          <h1>Publish</h1>
+          <span>
+            <b>status:</b> Draft
+          </span>
+          <span>
+            <b>Visibility: </b> Public
+          </span>
+          <input
+            type="file"
+            name="image"
+            id="file"
+            className="hidden"
+            onChange={hendleChange}
+          />
+          <label htmlFor="file" className="file">
+            Upload Image
+          </label>
+        </div>
+        <div className="btns">
+          <button className="btns1" type="submit">
+            Save as a draft
+          </button>
+          <button className="btns2" type="submit">
+            {type === "write" ? "Publish" : "Update"}
+          </button>
+        </div>
+        <div className="item">
+          <h1>Category</h1>
+          <div className="cat">
+            <input
+              type="radio"
+              name="category"
+              value="market-overview"
+              id="market-overview"
+              onChange={hendleChange}
+            />
+            <label htmlFor="market-overview">Market Overview</label>
+          </div>
+          <div className="cat">
+            <input
+              type="radio"
+              name="category"
+              value="technical-analysis"
+              id="technical-analysis"
+              onChange={hendleChange}
+            />
+            <label htmlFor="technical-analysis">Technical Aalysis</label>
+          </div>
+          <div className="cat">
+            <input
+              type="radio"
+              name="category"
+              value="funda-analysis"
+              id="funda-analysis"
+              onChange={hendleChange}
+            />
+            <label htmlFor="funda-analysis">Fundamentle Analysis</label>
+          </div>
+          <div className="cat">
+            <input
+              type="radio"
+              name="category"
+              value="technical-indicator"
+              id="technical-indicator"
+              onChange={hendleChange}
+            />
+            <label htmlFor="technical-indicator">Technical Indicator</label>
+          </div>
+        </div>
+      </div>
+    </form>
   );
 };
 

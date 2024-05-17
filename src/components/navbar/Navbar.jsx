@@ -1,12 +1,11 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const status = "authenticated";
-  const { openSearch, setOpenSearch } = useState(false);
+
   return (
     <>
-      <div className="mx-auto max-w-screen-lg flex items-center uppercase h-[70px] justify-between shadow-md mb-2 ">
+      <div className="mx-auto max-w-screen-xg bg-slate-300 rounded-full sticky top-2 flex items-center uppercase px-4 py-3 justify-between shadow-md mb-4 z-50">
         <Link to="/">
           <div className="logo flex items-center font-bold">
             <h2>Stockslify Blog</h2>
@@ -52,7 +51,7 @@ const Navbar = () => {
           </select>
         </div>
 
-        {status === "authenticated" ? (
+        {status === "unauthenticated" ? (
           <div className="flex gap-2 ">
             <Link to="/register" className="hover:bg-sky-200 py-2">
               Sign up
@@ -63,7 +62,7 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="auth flex gap-2 ">
-            <Link to="/write" className="hover:bg-sky-200 py-2">
+            <Link to="/blog/write" className="hover:bg-sky-200 py-2">
               Write blog
             </Link>
             <Link to="/register" className="hover:bg-sky-200 py-2">

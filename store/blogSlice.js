@@ -25,10 +25,11 @@ export default blogSlice.reducer;
 // create operation
 
 export function addBlog(data) {
+  console.log(data);
   return async function addBlogThunk(dispatch) {
     dispatch(setStatus(STATUSES.LOADING));
     try {
-      const response = await API.get("blog", data, {
+      const response = await API.post("blog", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

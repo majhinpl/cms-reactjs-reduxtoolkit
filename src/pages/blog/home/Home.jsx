@@ -1,6 +1,11 @@
 import "./homePage.css";
-import { Link } from "react-router-dom";
+
 import Layout from "../../../components/layout/Layout";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchBlog } from "../../../../store/blogSlice";
+import STATUSES from "../../../globals/statuses";
+import Card from "../conponents/card/Card";
 
 const Home = () => {
   const posts = [
@@ -30,26 +35,25 @@ const Home = () => {
     },
   ];
 
+  const [blogs, setBlogs] = useState([]);
+  const dispatch = useDispatch();
+
+  if (status === STATUSES.SUCCESS) {
+    setBlogs()
+  }
+
+  useEffect(() => {
+    dispatch(fetchBlog());
+  }, []);
+
   return (
     <Layout>
       <div className="home">
         <div className="posts max-w-screen-lg mx-auto">
-          {posts.map((post) => (
-            <div className="post" key={post.id}>
-              <div className="img">
-                <img src={post.img} alt="" />
-              </div>
-              <div className="content">
-                <Link className="link" to={`/post/${post.id}`}>
-                  <h1 className="title">{post.title}</h1>
-                </Link>
-                <p>{post.desc}</p>
-                <Link className="link" to={`/post/${post.id}`}>
-                  <button className="btn">Read More</button>
-                </Link>
-              </div>
-            </div>
-          ))}
+          {blogs.length > 0 &&
+            blogs.map((blog) => {
+              return <Card blog={blog} />;
+            })}
         </div>
       </div>
     </Layout>
