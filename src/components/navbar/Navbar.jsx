@@ -5,7 +5,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="mx-auto max-w-screen-xg bg-slate-300 rounded-full sticky top-2 flex items-center uppercase px-4 py-3 justify-between shadow-md mb-4 z-50">
+      <div className="mx-auto max-w-screen-xg bg-slate-200 rounded-full sticky top-2 flex items-center uppercase px-3 py-2 justify-around shadow-md mb-4 z-50">
         <Link to="/">
           <div className="logo flex items-center font-bold">
             <h2>Stockslify Blog</h2>
@@ -51,12 +51,12 @@ const Navbar = () => {
           </select>
         </div>
 
-        {status === "unauthenticated" ? (
+        {status === "authenticated" ? (
           <div className="flex gap-2 ">
-            <Link to="/register" className="hover:bg-sky-200 py-2">
-              Sign up
+            <Link to="/register" className="capitalize hover:bg-sky-200 py-2">
+              Register
             </Link>
-            <Link to="/login" className="hover:bg-sky-200 py-2">
+            <Link to="/login" className="hover:bg-sky-200 py-2 capitalize">
               Sign in
             </Link>
           </div>

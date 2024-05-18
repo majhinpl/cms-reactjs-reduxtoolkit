@@ -16,12 +16,10 @@ const Register = ({ type }) => {
     // check the status value
     // status --> success --> navigate to login page eelse register page
     if (status === STATUSES.SUCCESS) {
-      return navigate("/login");
-      // dispatch(setStatus(null));
-    } else {
-      navigate("/register");
+      navigate("/login");
+      dispatch(setStatus(null));
     }
-  }, [status, navigate]);
+  }, [status]);
   return <Form type="Register" onSubmit={handleRegister} />;
 };
 

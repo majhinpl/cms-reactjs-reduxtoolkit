@@ -1,31 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
 import STATUSES from "../src/globals/statuses";
 import API from "../src/http";
-import { setToken } from "./authSlice";
+import { data } from "autoprefixer";
 
 const blogSlice = createSlice({
   name: "blog",
   initialState: {
-    user: null,
+    blogs: [], // Array to hold multiple blogs.
+    blog: {}, // object to hold single blogs.
     status: null,
   },
   reducers: {
-    setStatus(state, action) {
-      state.status = action.payload;
+    setBlogs(state, action) {
+      state.blogs = action.payload;
     },
     setBlog(state, action) {
-      state.user = action.payload;
+      state.blog = action.payload;
+    },
+    setStatus(state, action) {
+      state.status = action.payload;
     },
   },
 });
 
-export const { setStatus, setBlog } = blogSlice.actions;
+export const { setStatus, setBlogs, setBlog } = blogSlice.actions;
 export default blogSlice.reducer;
 
 // create operation
 
 export function addBlog(data) {
-  console.log(data);
   return async function addBlogThunk(dispatch) {
     dispatch(setStatus(STATUSES.LOADING));
     try {
@@ -46,7 +49,7 @@ export function addBlog(data) {
   };
 }
 
-// read operation
+// read operation, All blog.
 
 export function fetchBlog() {
   return async function fetchBlogThunk(dispatch) {
@@ -54,7 +57,45 @@ export function fetchBlog() {
     try {
       const response = await API.get("blog");
       if (response.status === 200 && response.data.token) {
-        dispatch(setBlog(response.data.blog));
+        const blogs = response.data.data;
+        dispatch(setBlogs(blogs));
+        dispatch(setStatus(STATUSES.SUCCESS));
+      } else {
+        dispatch(setStatus(STATUSES.ERROR));
+      }
+    } catch (error) {
+      dispatch(setStatus(STATUSES.ERROR));
+    }
+  };
+}
+
+// read operation, single blog.
+export function singleBlog(id) {
+  return async function singleBlogThunk(dispatch) {
+    dispatch(setStatus(STATUSES.LOADING));
+    try {
+      const response = await API.get(`blog/${id}`);
+      if (response.status === 200) {
+        const singleBlog = response.data.data;
+        dispatch(setBlogs(singleBlog));
+        dispatch(setStatus(STATUSES.SUCCESS));
+      } else {
+        dispatch(setStatus(STATUSES.ERROR));
+      }
+    } catch (error) {
+      dispatch(setStatus(STATUSES.ERROR));
+    }
+  };
+}
+
+// read operation, single blog.
+export function blogEdit(id) {
+  return async function blogEditThunk(dispatch) {
+    dispatch(setStatus(STATUSES.LOADING));
+    try {
+      const response = await API.get(`blog/${id}`, data);
+      if (response.status === 200) {
+        dispatch(setBlogs(singleBlog));
         dispatch(setStatus(STATUSES.SUCCESS));
       } else {
         dispatch(setStatus(STATUSES.ERROR));
@@ -67,8 +108,8 @@ export function fetchBlog() {
 
 // delete operation
 
-export function deleteBlog(id, token) {
-  return async function deleteBlogThunk(dispatch) {
+export function blogDelete(id, token) {
+  return async function blogDeleteThunk(dispatch) {
     dispatch(setStatus(STATUSES.LOADING));
     try {
       const response = await API.delete(`blog/${id}`, {

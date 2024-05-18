@@ -15,12 +15,10 @@ const Login = ({ type }) => {
   useEffect(() => {
     if (status === STATUSES.SUCCESS) {
       navigate("/");
-      // dispatch(setStatus(null));
       localStorage.setItem("jwtToken", token);
-    } else {
-      navigate("/login");
+      dispatch(setStatus(null));
     }
-  }, [status, navigate]);
+  }, [status]);
   return <Form type="Login" onSubmit={handleLogin}></Form>;
 };
 
