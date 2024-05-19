@@ -1,17 +1,36 @@
 import "./singlePage.css";
 import Layout from "../../../components/layout/Layout";
 import Sidebar from "../../../components/sidebar/Sidebar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { singleBlog, blogDelete } from "../../../../store/blogSlice";
+import STATUSES from "../../../globals/statuses";
 
 const SinglePage = () => {
+  const { status, blog } = useSelector((state) => state.blog);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(singleBlog(id));
+  }, []);
+
+  // delete operation
+  const blogDeleteFn = () => {
+    dispatch(blogDelete(id));
+
+    if (status === STATUSES.SUCCESS) {
+      navigate("/");
+    }
+  };
+
   return (
     <Layout>
       <div className="single max-w-screen-lg mx-auto">
         <div className="content">
-          <img
-            src="https://media.istockphoto.com/id/1345912457/photo/financial-stock-market-graph-selective-focus.jpg?s=612x612&w=is&k=20&c=dCnoMBxvdHQT9aUhVxiApN6w7BgGer6uXZe3LdPlnNg="
-            alt=""
-          />
+          <img src={blog.imageUrl} alt="" />
           <div className="user">
             <img
               src="https://images.pexels.com/photos/7567529/pexels-photo-7567529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -19,47 +38,21 @@ const SinglePage = () => {
             />
             <div className="info">
               <span>
-                <strong>John</strong>
+                <strong>{blog.userId.username}</strong>
               </span>
               <p>Posted 2 days ago</p>
             </div>
             <div className="edit">
-              <Link to={`/edit?edit=2`}>
+              <Link to={`/blog/edit/${id}`}>
                 <img src="/edit.png" alt="" />
               </Link>
-              <img src="/delete.png" alt="" />
+              <img src="/delete.png" alt="" onClick={blogDeleteFn} />
             </div>
           </div>
-          <h1 className="title">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque
-            veniam ex cumque fugit optio eaque.
-          </h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis,
-            ipsum!
-          </p>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Necessitatibus autem adipisci quod odit, repellat hic beatae nemo
-            totam velit, tenetur optio cumque vitae obcaecati accusantium?
-            Ipsum, praesentium aliquam sint sunt ad itaque non modi quam.
-            Praesentium cumque tenetur quasi voluptatem doloribus, ad vel
-            repellat quae enim officiis nulla repellendus possimus?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-            deleniti eveniet reprehenderit modi eaque eum sint inventore odio
-            ullam, iure quod qui assumenda illum recusandae, quaerat incidunt
-            similique repudiandae esse pariatur, hic voluptatem. Nulla,
-            temporibus! Harum dolores quisquam a sunt similique officiis
-            voluptates unde dicta quo sed consectetur tempora pariatur
-            doloremque ad blanditiis voluptatibus, quasi perferendis nisi rem
-            quaerat ullam cupiditate aut dignissimos assumenda. Nemo, dolores
-            qui? Dicta veniam quis fuga expedita, earum ipsum vel aspernatur
-            labore exercitationem iusto consequuntur debitis officia neque porro
-            a eaque repudiandae, deserunt necessitatibus ipsa quos et? Aliquam
-            excepturi odio ratione atque iusto, commodi inventore?
-          </p>
+          <p className="cat">{blog.category}</p>
+          <h1 className="title">{blog.title}</h1>
+          <p className="subTitle">{blog.subtitle}</p>
+          <p>{blog.description}</p>
         </div>
         <Sidebar />
       </div>

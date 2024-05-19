@@ -56,7 +56,7 @@ export function fetchBlog() {
     dispatch(setStatus(STATUSES.LOADING));
     try {
       const response = await API.get("blog");
-      if (response.status === 200 && response.data.token) {
+      if (response.status === 200) {
         const blogs = response.data.data;
         dispatch(setBlogs(blogs));
         dispatch(setStatus(STATUSES.SUCCESS));
@@ -76,8 +76,8 @@ export function singleBlog(id) {
     try {
       const response = await API.get(`blog/${id}`);
       if (response.status === 200) {
-        const singleBlog = response.data.data;
-        dispatch(setBlogs(singleBlog));
+        const blog = response.data.data;
+        dispatch(setBlog(blog));
         dispatch(setStatus(STATUSES.SUCCESS));
       } else {
         dispatch(setStatus(STATUSES.ERROR));
@@ -88,14 +88,19 @@ export function singleBlog(id) {
   };
 }
 
-// read operation, single blog.
-export function blogEdit(id) {
+// read operation, edit blog.
+export function blogEdit(data, id) {
   return async function blogEditThunk(dispatch) {
     dispatch(setStatus(STATUSES.LOADING));
     try {
-      const response = await API.get(`blog/${id}`, data);
+      const response = await API.get(`blog/${id}`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization ": localStorage.getItem("token"),
+        },
+      });
       if (response.status === 200) {
-        dispatch(setBlogs(singleBlog));
+        dispatch(setBlog(singleBlog));
         dispatch(setStatus(STATUSES.SUCCESS));
       } else {
         dispatch(setStatus(STATUSES.ERROR));

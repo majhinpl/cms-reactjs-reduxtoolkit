@@ -1,25 +1,25 @@
-import Layout from "../../../components/layout/Layout";
 import "./writePage.css";
+import Layout from "../../../components/layout/Layout";
 import Form from "../conponents/form/Form";
 import { useDispatch, useSelector } from "react-redux";
-import { addBlog } from "../../../../store/blogSlice";
+import { addBlog, setStatus } from "../../../../store/blogSlice";
 import { useNavigate } from "react-router-dom";
 import STATUSES from "../../../globals/statuses";
+import { useEffect } from "react";
 
-export const Write = ({ type, onSubmit }) => {
-  const { status } = useSelector((stats) => stats.blog);
+export const Write = () => {
+  const { status } = useSelector((state) => state.blog);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleWrite = (data) => {
     dispatch(addBlog(data));
-
-    if (status === STATUSES.SUCCESS) {
-      return navigate("/");
-    } else {
-      return navigate("/blog/write");
-      // alert("Somthng went worng");
-    }
   };
+  useEffect(() => {
+    if (status === STATUSES.SUCCESS) {
+      navigate("/");
+      dispatch(setStatus(null));
+    }
+  }, [status]);
 
   return (
     <Layout>

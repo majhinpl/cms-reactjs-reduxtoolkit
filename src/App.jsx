@@ -17,9 +17,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/blog/:id" element={<EditBlog />} />
+          <Route path="/blog/edit/:id" element={<EditBlog />} />
           <Route path="/blog/write" element={<Write />} />
-          <Route path="/post/:id" element={<SinglePage />} />
+          <Route path="/blog/:id" element={<SinglePage />} />
         </Routes>
       </BrowserRouter>
     </Provider>

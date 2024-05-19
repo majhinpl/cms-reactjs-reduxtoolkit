@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const Form = ({ type, onSubmit }) => {
+const Form = ({ type, onSubmit, prevData }) => {
   const [value, setValue] = useState("");
 
   const [data, setData] = useState({
@@ -13,10 +13,15 @@ const Form = ({ type, onSubmit }) => {
     image: "",
   });
 
+  useEffect(() => {
+    if (prevData) {
+      setData(prevData);
+    }
+  }, [prevData]);
+
   // collect a data
   const hendleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setData({
       ...data,
       [name]: name === "image" ? e.target.files[0] : value,
@@ -31,7 +36,6 @@ const Form = ({ type, onSubmit }) => {
       description: value,
     };
     onSubmit(finalData);
-    console.log(finalData);
   };
 
   return (
