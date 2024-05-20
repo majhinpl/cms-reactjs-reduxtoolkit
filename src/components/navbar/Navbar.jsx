@@ -14,9 +14,9 @@ const Navbar = () => {
         <div className="flex gap-3 items-center ">
           <Link to="" className="hover:underline">
             {" "}
-            Go to Stockslify
+            Home
           </Link>
-          <Link to="" className="hover:underline">
+          <Link to="" className="hover:underline dropDown">
             Market Analysis
           </Link>
           <Link to="" className="hover:underline">
