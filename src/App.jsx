@@ -6,10 +6,13 @@ import Login from "./pages/auth/Login";
 import EditBlog from "./pages/blog/edit/EditBlog";
 import SinglePage from "./pages/blog/single/SinglePage";
 import { Write } from "./pages/blog/write/Write";
-import { Provider } from "react-redux";
 import store from "../store/store";
+import { Provider } from "react-redux";
+
 
 function App() {
+  
+
   return (
     <Provider store={store}>
       <BrowserRouter>

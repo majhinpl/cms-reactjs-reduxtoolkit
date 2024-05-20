@@ -1,7 +1,16 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { loadToken, setLogOut } from "../../../store/authSlice";
 
 const Navbar = () => {
-  const status = "authenticated";
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(loadToken());
+  }, [dispatch]);
 
   return (
     <>
@@ -16,9 +25,35 @@ const Navbar = () => {
             {" "}
             Home
           </Link>
-          <Link to="" className="hover:underline dropDown">
-            Market Analysis
-          </Link>
+          <div
+            className="relative"
+            onMouseEnter={() => setDropdownOpen(true)}
+            onMouseLeave={() => setDropdownOpen(false)}
+          >
+            <button className="hover:underline">Market Analysis</button>
+            {dropdownOpen && (
+              <div className="absolute top-full mt-1 shadow-lg rounded-md capitalize">
+                <Link
+                  to="/technicalAnalysis"
+                  className="block px-4 py-2 hover:bg-slate-200 w-fit"
+                >
+                  Technical Analysis
+                </Link>
+                <Link
+                  to="/fundaAnalysis"
+                  className="block px-4 py-2 hover:bg-slate-200"
+                >
+                  Fundamental Analysis
+                </Link>
+                <Link
+                  to="/indicators"
+                  className="block px-4 py-2 hover:bg-slate-200"
+                >
+                  Indicators
+                </Link>
+              </div>
+            )}
+          </div>
           <Link to="" className="hover:underline">
             Learn
           </Link>
@@ -51,22 +86,25 @@ const Navbar = () => {
           </select>
         </div>
 
-        {status === "authenticated" ? (
+        {isAuthenticated ? (
           <div className="flex gap-2 ">
+            <Link to="/blog/write" className="hover:bg-sky-200 py-2">
+              Write blog
+            </Link>
+            <button
+              onClick={() => dispatch(setLogOut())}
+              className="hover:bg-sky-200 py-2"
+            >
+              Sign out
+            </button>
+          </div>
+        ) : (
+          <div className="auth flex gap-2 ">
             <Link to="/register" className="capitalize hover:bg-sky-200 py-2">
               Register
             </Link>
             <Link to="/login" className="hover:bg-sky-200 py-2 capitalize">
               Sign in
-            </Link>
-          </div>
-        ) : (
-          <div className="auth flex gap-2 ">
-            <Link to="/blog/write" className="hover:bg-sky-200 py-2">
-              Write blog
-            </Link>
-            <Link to="/register" className="hover:bg-sky-200 py-2">
-              Sign out
             </Link>
           </div>
         )}

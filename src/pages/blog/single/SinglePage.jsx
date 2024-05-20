@@ -38,7 +38,7 @@ const SinglePage = () => {
             />
             <div className="info">
               <span>
-                <strong>{blog.userId?.username}</strong>
+                <strong>{blog?.userId?.username}</strong>
               </span>
               <p>Posted 2 days ago</p>
             </div>
