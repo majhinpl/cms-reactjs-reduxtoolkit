@@ -8,11 +8,9 @@ import SinglePage from "./pages/blog/single/SinglePage";
 import { Write } from "./pages/blog/write/Write";
 import store from "../store/store";
 import { Provider } from "react-redux";
-
+import Protected from "./Protected";
 
 function App() {
-  
-
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -20,9 +18,30 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/blog/edit/:id" element={<EditBlog />} />
-          <Route path="/blog/write" element={<Write />} />
-          <Route path="/blog/:id" element={<SinglePage />} />
+          <Route
+            path="/blog/edit/:id"
+            element={
+              <Protected>
+                <EditBlog />
+              </Protected>
+            }
+          />
+          <Route
+            path="/blog/write"
+            element={
+              <Protected>
+                <Write />
+              </Protected>
+            }
+          />
+          <Route
+            path="/blog/:id"
+            element={
+              <Protected>
+                <SinglePage />
+              </Protected>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </Provider>

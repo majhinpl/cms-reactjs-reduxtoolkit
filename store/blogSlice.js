@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import STATUSES from "../src/globals/statuses";
 import API from "../src/http";
-import { data } from "autoprefixer";
 
 const blogSlice = createSlice({
   name: "blog",
