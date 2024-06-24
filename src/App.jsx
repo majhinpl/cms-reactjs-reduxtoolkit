@@ -9,6 +9,7 @@ import { Write } from "./pages/blog/write/Write";
 import store from "../store/store";
 import { Provider } from "react-redux";
 import Protected from "./Protected";
+import Parent from "./pages/useCallback/Parent";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
               </Protected>
             }
           />
+          <Route path="/useCallback" element={<Parent />} />
         </Routes>
       </BrowserRouter>
     </Provider>

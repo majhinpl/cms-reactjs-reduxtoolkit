@@ -21,14 +21,14 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="mx-auto max-w-screen-xg bg-slate-200 rounded-full sticky top-2 flex items-center uppercase px-3 py-3 justify-around shadow-md mb-4 z-50">
+      <div className="mx-auto max-w-screen-xg bg-slate-200 rounded-full sticky top-2 flex items-center uppercase px-3 py-3 justify-around shadow-md mb-4 z-50 gap-2">
         <Link to="/">
           <div className="logo flex items-center font-bold">
             <h2>Stockslify Blog</h2>
           </div>
         </Link>
         <div className="flex gap-3 items-center ">
-          <Link to="/" className="hover:underline">
+          <Link to="/" className="hover:underline p-2">
             {" "}
             Home
           </Link>
@@ -37,7 +37,7 @@ const Navbar = () => {
             onMouseEnter={() => setDropdownOpen(true)}
             onMouseLeave={() => setDropdownOpen(false)}
           >
-            <button className="hover:underline">Market Analysis</button>
+            <button className="hover:underline  p-2">Market Analysis</button>
             {dropdownOpen && (
               <div className="absolute top-full mt-1 shadow-lg rounded-md capitalize">
                 <Link
@@ -61,7 +61,7 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <Link to="" className="hover:underline">
+          <Link to="" className="hover:underline p-2">
             Learn
           </Link>
 

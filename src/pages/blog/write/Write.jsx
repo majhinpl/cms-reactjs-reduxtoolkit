@@ -17,10 +17,10 @@ export const Write = () => {
 
   useEffect(() => {
     if (status === STATUSES.SUCCESS) {
-      navigate("/");
       dispatch(setStatus(null));
+      navigate("/");
     }
-  }, [status]);
+  }, [status, dispatch]);
 
   return (
     <Layout>
